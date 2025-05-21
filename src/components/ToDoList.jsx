@@ -2,7 +2,7 @@ import "./ToDoList.css";
 
 import { useState } from "react";
 
-import ToDo from "./Todo";
+import ToDo from "./ToDo";
 import AddToDo from "./AddToDo";
 import Title from "./Title";
 
