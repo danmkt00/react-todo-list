@@ -1,9 +1,9 @@
-.todo-input {
+.todo-form {
     display: flex;
     margin-top: 20px;
 }
 
-.todo-input input[type="text"] {
+.todo-form input[type="text"] {
     flex: 1;
     padding: 8px;
     font-size: 14px;
@@ -12,7 +12,7 @@
     outline: none;
 }
 
-.todo-input button {
+.todo-form button {
     padding: 8px 12px;
     background-color: #007bff;
     color: white;
@@ -22,6 +22,6 @@
     transition: background 0.3s;
 }
 
-.todo-input button:hover {
+.todo-form button:hover {
     background-color: #0056b3;
 }

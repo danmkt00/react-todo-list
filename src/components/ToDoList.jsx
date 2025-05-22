@@ -11,8 +11,8 @@ const ToDoList = () => {
         { id: 1, text: "Buy groceries", completed: false },
         { id: 2, text: "Walk the dog", completed: true },
         { id: 3, text: "Read a book", completed: false },
-        { id: 4, text: "Finish todo list project", completed: false },
-        { id: 5, text: "Something", completed: true },
+        { id: 4, text: "Play the guitar", completed: true },
+        { id: 5, text: "Finish the todo list project", completed: false },
     ]);
 
     const changeHandler = (id) => {
@@ -23,8 +23,12 @@ const ToDoList = () => {
         setTodos(updatedTodos);
     };
 
-    const updateHandler = (text) => {
-        if (text === "") return;
+    const updateHandler = (e, text) => {
+        e.preventDefault();
+        if (text === "") {
+            setError("Enter text");
+            return;
+        }
         const newTodo = {
             id: todos.length
                 ? Math.max(...todos.map((todo) => todo.id)) + 1
@@ -34,6 +38,16 @@ const ToDoList = () => {
         };
 
         setTodos([...todos, newTodo]);
+    };
+
+    const deleteHandler = (id) => {
+        const updatedTodos = todos.filter((todo) => {
+            if (todo.id !== id) {
+                return todo;
+            }
+        });
+
+        setTodos(updatedTodos);
     };
 
     return (
@@ -46,6 +60,7 @@ const ToDoList = () => {
                     text={todo.text}
                     isChecked={todo.completed}
                     changeHandler={changeHandler}
+                    deleteHandler={deleteHandler}
                 />
             ))}
             <AddToDo updateHandler={updateHandler} />
