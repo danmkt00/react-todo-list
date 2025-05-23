@@ -3,23 +3,35 @@ import { useState } from "react";
 
 const AddToDo = ({ updateHandler }) => {
     const [newTodoText, setNewTodoText] = useState("");
+    const [error, setError] = useState("");
+
     const submitHandler = (e) => {
-        updateHandler(e, newTodoText);
+        e.preventDefault();
+        if (newTodoText === "") {
+            setError("Please enter some text");
+            return;
+        }
+        updateHandler(newTodoText);
         setNewTodoText("");
     };
 
+    const changeHandler = (e) => {
+        setError("");
+        setNewTodoText(e.target.value);
+    };
+
     return (
-        <form
-            onSubmit={(e) => submitHandler(e)}
-            className="todo-form"
-        >
-            <input
-                type="text"
-                value={newTodoText}
-                onChange={(e) => setNewTodoText(e.target.value)}
-                placeholder="Enter new todo..."
-            />
-            <button type="submit">Add ToDo</button>
+        <form onSubmit={(e) => submitHandler(e)} className="todo-form">
+            <div class="inputs-wrapper">
+                <input
+                    type="text"
+                    value={newTodoText}
+                    onChange={(e) => changeHandler(e)}
+                    placeholder="Enter new todo..."
+                />
+                <button type="submit">Add ToDo</button>
+            </div>
+            {error && <div className="error-message">{error}</div>}
         </form>
     );
 };

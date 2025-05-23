@@ -14,6 +14,7 @@ const ToDoList = () => {
         { id: 4, text: "Play the guitar", completed: true },
         { id: 5, text: "Finish the todo list project", completed: false },
     ]);
+    const [error, setError] = useState("");
 
     const changeHandler = (id) => {
         const updatedTodos = todos.map((todo) =>
@@ -23,12 +24,7 @@ const ToDoList = () => {
         setTodos(updatedTodos);
     };
 
-    const updateHandler = (e, text) => {
-        e.preventDefault();
-        if (text === "") {
-            setError("Enter text");
-            return;
-        }
+    const updateHandler = (text) => {
         const newTodo = {
             id: todos.length
                 ? Math.max(...todos.map((todo) => todo.id)) + 1
@@ -53,17 +49,23 @@ const ToDoList = () => {
     return (
         <div className="todo-container">
             <Title text="To Do List" />
-            {todos.map((todo) => (
-                <ToDo
-                    key={todo.id}
-                    id={todo.id}
-                    text={todo.text}
-                    isChecked={todo.completed}
-                    changeHandler={changeHandler}
-                    deleteHandler={deleteHandler}
-                />
-            ))}
+            {todos.length >= 1 ? (
+                todos.map((todo) => (
+                    <ToDo
+                        key={todo.id}
+                        id={todo.id}
+                        text={todo.text}
+                        isChecked={todo.completed}
+                        changeHandler={changeHandler}
+                        deleteHandler={deleteHandler}
+                    />
+                ))
+            ) : (
+                <div className="error-message">Add your first Todo!</div>
+            )}
+
             <AddToDo updateHandler={updateHandler} />
+            {error && <div>{error}</div>}
         </div>
     );
 };
